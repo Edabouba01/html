@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Humidite</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="fichier.js"></script>
+  </head>
+  <body>
+    <div class="container my-container">
+      <!--Navigateur-->
+      <div class="row my-row">
+        <div class="col my-col">
+          <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
+            <div class="collapse navbar-collapse"></div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="humidite.html"
+                  ><i class="fas fa-home"></i> humidite</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="temperature.html"
+                  ><i class="fas fa-handshake"></i> Temperature</a
+                >
+              <li class="nav-item">
+                <a class="nav-link" href="pression.html"
+                  ><i class="fas fa-address-book"></i> Pression</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!--Partie 1-->
+      <div id="humidite-data"></div>
+    </div>
+  </body>
+</html>
+
+
+<!-- templates/user_chart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Data Chart</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+</head>
+<body>
+    <h1>User Data Chart</h1>
+    <!-- Utilisez un identifiant unique pour le canvas -->
+    <canvas id="userChart" width="800" height="400"></canvas>
+
+    <script>
+        // Attendre que le DOM soit chargé
+        document.addEventListener("DOMContentLoaded", function () {
+            // Effectuer la requête AJAX pour obtenir les données JSON
+            fetch('http://127.0.0.1:8000/humidite/')
+                .then(response => response.json())
+                .then(data => {
+                    // Vérifier que la réponse est un objet
+                    if (typeof data === 'object' && data !== null) {
+                        // Extraire les labels (timestamps) et les valeurs d'humidité des données JSON
+                        const labels = Object.keys(data);  // Utilisez Object.keys pour obtenir les clés de l'objet
+                        const values = Object.values(data);  // Utilisez Object.values pour obtenir les valeurs de l'objet
+
+                        // Utiliser Chart.js pour créer un graphique
+                        var ctx = document.getElementById('userChart').getContext('2d'); // Utilisez l'identifiant correct
+                        var myChart = new Chart(ctx, {
+                            type: 'line', // Utilisez un graphique de ligne pour montrer la variation au fil du temps
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Variation de l\'Humidité',
+                                    data: values,
+                                    fill: false, // Ne pas remplir la zone sous la ligne pour mieux montrer la variation
+                                    borderColor: 'rgba(75, 192, 192, 1)', // Couleur de la ligne
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    x: {
+                                        type: 'linear', // Utilisez une échelle linéaire pour le temps
+                                        position: 'bottom',
+                                        title: {
+                                            display: true,
+                                            text: 'Timestamps'
+                                        },
+                                        ticks: {
+                                            autoSkip: true,
+                                            maxTicksLimit: 10, // Limiter le nombre de ticks pour une meilleure lisibilité
+                                            callback: function (value, index, values) {
+                                              // Formater le timestamp (ajuster selon vos besoins)
+                                              const date = new Date(value * 1000);
+                                              const day = 16;
+                                              const month = 11; // Les mois commencent à 0
+                                              const year = 2023;
+                                              const hours = 20;
+                                              const minutes = 50;
+                                              const seconds = 50;
+                  
+                                              // Format final "DD-MM-YYYY HH:mm:ss"
+                                              return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+                                          }
+                                        }
+                                    },
+                                    y: {
+                                        type: 'linear', // Utilisez une échelle linéaire pour l'humidité
+                                        title: {
+                                            display: true,
+                                            text: 'Humidité'
+                                        },
+                                        beginAtZero: true,
+                                        suggestedMax: 100, // Ajuster en fonction de la plage attendue des valeurs d'humidité
+                                        ticks: {
+                                            callback: function (value, index, values) {
+                                                // Formater les ticks de l'axe y (ajuster selon vos besoins)
+                                                return value + '%';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        console.error('La réponse de l\'API n\'est pas un objet.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+        });
+    </script>
+</body>
+</html>
