@@ -29,12 +29,22 @@
           <div class="collapse navbar-collapse"></div>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="humidite.html"><i class="fas fa-home"></i> humidite</a>
+              <a class="nav-link " href="lumiere.html"><i class="fas fa-home"></i> afficher Capterur de lumiere</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="temperature.html"><i class="fas fa-handshake"></i> Temperature</a>
+              <a class="nav-link active" href="son.html"><i class="fas fa-handshake"></i> afficher capteur de son</a>
+            </li>
             <li class="nav-item">
-              <a class="nav-link" href="pression.html"><i class="fas fa-address-book"></i> Pression</a>
+              <a class="nav-link" href="moisisure.html"><i class="fas fa-address-book"></i> afficher capteur de moisisure</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="modification.html"><i class="fas fa-address-book"></i> modifier les donnee</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="suppression.html"><i class="fas fa-address-book"></i> supprimer les donner</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Ajouter.html"><i class="fas fa-address-book"></i> ajouter les donner</a>
             </li>
           </ul>
         </nav>
@@ -47,7 +57,7 @@
     // Attendre que le DOM soit chargé
     document.addEventListener("DOMContentLoaded", function () {
       // Effectuer la requête AJAX pour obtenir les données JSON
-      fetch('http://127.0.0.1:8000/temperatur/')
+      fetch('http://192.168.2.208:8080/data')
         .then(response => response.json())
         .then(data => {
 
@@ -62,7 +72,7 @@
             data: {
               labels: labels,
               datasets: [{
-                label: 'total donnee temperature',
+                label: 'total donnee son',
                 data: values,
                 backgroundColor: 'rgba(755, 192, 69, 2)', // Couleur de fond
                 borderColor: 'rgba(75, 12, 192, 10)', // Couleur de la bordure
