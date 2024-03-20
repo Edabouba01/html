@@ -1,171 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
-  <script src="fichier.js"></script>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modification</title>
-
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
- 
-  <link rel="stylesheet" href="css/style.css" />
-
-  <title>Modification</title>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
-  <script src="fichier.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- Inclure vos fichiers CSS ici -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-    <div class="container my-container">
-      <!-- Navigateur -->
-      <div class="row my-row">
-          <div class="col my-col">
-              <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-                  <div class="collapse navbar-collapse"></div>
-                  <ul class="navbar-nav">
-                      <li class="nav-item">
-                          <a class="nav-link " href="lumiere.html"><i class="fas fa-home"></i> Capteur de lumière</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="son.html"><i class="fas fa-handshake"></i> Capteur de son</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="moisisure.html"><i class="fas fa-address-book"></i> Capteur de moisissure</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link active" href="modification.html"><i class="fas fa-address-book"></i> Modifier les données</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="suppression.html"><i class="fas fa-address-book"></i> Supprimer les données</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="ajouter.html"><i class="fas fa-address-book"></i> Ajouter des données</a>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
+  <div class="container my-container">
+    <!-- Navigateur -->
+    <div class="row my-row">
+      <div class="col my-col">
+        <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
+          <!-- Ajouté une div vide pour la collapse navbar-collapse -->
+          <div class="collapse navbar-collapse"></div>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " href="lumiere.html"><i class="fas fa-home"></i> Capteur de lumière</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="son.html"><i class="fas fa-handshake"></i> Capteur de son</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="moisisure.html"><i class="fas fa-address-book"></i> Capteur de moisissure</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="modification.html"><i class="fas fa-address-book"></i> Modifier les données</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="suppression.html"><i class="fas fa-address-book"></i> Supprimer les données</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ajouter.html"><i class="fas fa-address-book"></i> Ajouter des données</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Equipements.html"><i class="fas fa-address-book"></i> Afficher Equipements</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      
-        
-       
-      <h1>Mise à Jour</h1>
-      <form id="updateForm">
-          <label for="objectName">Nom de l'objet à mettre à jour :</label>
-          <input type="text" id="objectName" name="objectName" required><br><br>
-          <label for="objectip">address ip de l'objet à mettre à jour :</label>
-          <input type="text" id="objectip" name="objectip" required><br><br>
-          <label for="updateType">Type de mise à jour :</label>
-          <select id="updateType" name="updateType">
-              
-              <option value="capteur">Capteur</option>
-              <option value="actuateur">Actuateur</option>
-          </select><br><br>
-  
-          <div id="equipementFields" style="display: none;">
-              <label for="newObjectName">Nouveau nom de l'objet :</label>
-              <input type="text" id="newObjectName" name="newObjectName"><br><br>
-  
-              <label for="newObjectIP">Nouvelle adresse IP :</label>
-              <input type="text" id="newObjectIP" name="newObjectIP"><br><br>
-          </div>
-  
-          <div id="capteurFields" style="display: none;">
-              <label for="newMeasurementType">Nouveau type de mesure :</label>
-              <input type="text" id="newMeasurementType" name="newMeasurementType"><br><br>
-  
-              <label for="newMeasurementValue">Nouvelle valeur :</label>
-              <input type="number" id="newMeasurementValue" name="newMeasurementValue"><br><br>
-          </div>
-  
-          <div id="actuateurFields" style="display: none;">
-              <label for="newActionType">Nouveau type d'action :</label>
-              <input type="text" id="newActionType" name="newActionType"><br><br>
-          </div>
-  
-          <button type="submit">Mettre à Jour</button>
-      </form>
-  
-      <script>
-          // Écouteur d'événement pour détecter le changement dans le type de mise à jour
-          document.getElementById('updateType').addEventListener('change', function() {
-              var updateType = this.value;
-  
-              // Afficher les champs correspondants au type de mise à jour sélectionné
-              document.getElementById('equipementFields').style.display = 'none';
-              document.getElementById('capteurFields').style.display = 'none';
-              document.getElementById('actuateurFields').style.display = 'none';
-  
-              if (updateType === 'equipement') {
-                  document.getElementById('equipementFields').style.display = 'block';
-              } else if (updateType === 'capteur') {
-                  document.getElementById('capteurFields').style.display = 'block';
-              } else if (updateType === 'actuateur') {
-                  document.getElementById('actuateurFields').style.display = 'block';
-              }
-          });
-  
-          // Écouteur d'événement pour soumettre le formulaire de mise à jour
-          document.getElementById('updateForm').addEventListener('submit', function(event) {
-              event.preventDefault(); // Empêcher le formulaire de soumettre normalement
-  
-              var objectName = document.getElementById('objectName').value;
-              var updateType = document.getElementById('updateType').value;
-  
-              // Création de l'objet de données à envoyer au serveur
-              var requestData = { objectName: objectName };
-  
-              if (updateType === 'equipement') {
-                  requestData.newObjectName = document.getElementById('newObjectName').value;
-                  requestData.newObjectIP = document.getElementById('newObjectIP').value;
-              } else if (updateType === 'capteur') {
-                  requestData.newMeasurementType = document.getElementById('newMeasurementType').value;
-                  requestData.newMeasurementValue = document.getElementById('newMeasurementValue').value;
-              } else if (updateType === 'actuateur') {
-                  requestData.newActionType = document.getElementById('newActionType').value;
-              }
-  
-              // Envoi de la demande au serveur via AJAX
-              $.ajax({
-                  url: 'http://192.168.2.208:8080/data/modifierCapteur', // Remplacez par l'URL de votre endpoint de mise à jour
-                  type: 'POST', // Méthode HTTP à utiliser (POST)
-                  dataType: 'json', // Type de données à attendre du serveur (JSON dans ce cas)
-                  data: JSON.stringify(requestData), // Conversion des données en format JSON
-                  contentType: 'application/json', // Type de contenu de la demande (JSON)
-                  success: function(response) {
-                      // Fonction à exécuter en cas de succès de la demande
-                      console.log('Réponse du serveur : ', response);
-                      alert('Mise à jour réussie !');
-                      // Vous pouvez effectuer d'autres actions ici, comme actualiser la page ou afficher un message à l'utilisateur
-                  },
-                  error: function(xhr, status, error) {
-                      // Fonction à exécuter en cas d'erreur de la demande
-                      console.error('Erreur lors de la mise à jour : ', error);
-                      alert('Erreur lors de la mise à jour. Veuillez réessayer !');
-                      // Vous pouvez gérer les erreurs d'une manière appropriée ici
-                  }
-              });
-          });
-      </script>
+    </div>
+
+    <h1 style="text-align: center;">Mise à Jour</h1>
+    <form id="updateForm">
+      <div class="form-group">
+        <label for="objectName">Nom de l'objet à mettre à jour :</label>
+        <input type="text" class="form-control" id="objectName" name="objectName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="updateType">Type de mise à jour :</label>
+        <select id="updateType" name="updateType">
+          <option value="equipement">Equipement</option>
+          <option value="capteur">Capteur</option>
+          <option value="actuateur">Actuateur</option>
+        </select>
+      </div>
+
+      <div id="equipementFields" style="display: none;">
+        <div class="form-group">
+          <label for="newObjectName">Nouveau nom de l'objet :</label>
+          <input type="text" class="form-control" id="newObjectName" name="newObjectName">
+        </div>
+        <div class="form-group">
+          <label for="newObjectIP">Nouvelle adresse IP :</label>
+          <input type="text" class="form-control" id="newObjectIP" name="newObjectIP">
+        </div>
+      </div>
+
+      <div id="capteurFields" style="display: none;">
+        <div class="form-group">
+          <label for="newMeasurementType">Nouveau type de mesure :</label>
+          <input type="text" class="form-control" id="newMeasurementType" name="newMeasurementType">
+        </div>
+        <div class="form-group">
+          <label for="newMeasurementValue">Nouvelle valeur :</label>
+          <input type="number" class="form-control" id="newMeasurementValue" name="newMeasurementValue">
+        </div>
+      </div>
+
+      <div id="actuateurFields" style="display: none;">
+        <div class="form-group">
+          <label for="newActionType">Nouveau type d'action :</label>
+          <input type="text" class="form-control" id="newActionType" name="newActionType">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Mettre à Jour</button>
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="fichier.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#updateType').change(function () {
+        var updateType = $(this).val();
+        $('#equipementFields').hide();
+        $('#capteurFields').hide();
+        $('#actuateurFields').hide();
+        if (updateType === 'equipement') {
+          $('#equipementFields').show();
+        } else if (updateType === 'capteur') {
+          $('#capteurFields').show();
+        } else if (updateType === 'actuateur') {
+          $('#actuateurFields').show();
+        }
+      });
+
+      $('#updateForm').submit(function (event) {
+        event.preventDefault();
+        var objectName = $('#objectName').val();
+        var updateType = $('#updateType').val();
+        var requestData = { objectName: objectName, updateType: updateType };
+
+        if (updateType === 'equipement') {
+          requestData.newObjectName = $('#newObjectName').val();
+          requestData.newObjectIP = $('#newObjectIP').val();
+        } else if (updateType === 'capteur') {
+          requestData.newMeasurementType = $('#newMeasurementType').val();
+          requestData.newMeasurementValue = $('#newMeasurementValue').val();
+        } else if (updateType === 'actuateur') {
+          requestData.newActionType = $('#newActionType').val();
+        }
+
+        // Envoyer les données au serveur pour la mise à jour
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:8080/update',
+          data: JSON.stringify(requestData),
+          contentType: 'application/json',
+          success: function (response) {
+            alert('Mise à jour effectuée avec succès');
+            // Réinitialiser le formulaire
+            $('#updateForm')[0].reset();
+          },
+          error: function (xhr, status, error) {
+            alert('Erreur lors de la mise à jour : ' + error);
+          }
+        });
+      });
+    });
+  </script
+
 </body>
-
-
 </html>

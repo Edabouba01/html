@@ -46,58 +46,60 @@
             <li class="nav-item">
               <a class="nav-link" href="Ajouter.html"><i class="fas fa-address-book"></i> ajouter les donner</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Equipements.html"><i class="fas fa-address-book"></i> Afficher Equipements</a>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
     <!--Partie 1-->
-    <canvas id="graphe hum" width="400" height="400"></canvas>
-    <div id="humidite-data"></div>
-
-  </div>
-</body>
-<!-- Cette partie script a ete utiliser pour creer un graphique pour l utilisateur pour ca jai utiliser chart.js-->
-<script>
-  // Attendre que le DOM soit chargé  : https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
-  document.addEventListener("DOMContentLoaded", function () {
-    // Effectuer la requête AJAX pour obtenir les données JSON
-
-    fetch('http://192.168.2.208:8080/data')
-      .then(response => response.json())
-      .then(data => {
-
-        // Extraire les labels et les valeurs des données JSON
-        const labels = Object.keys(data);  //  Object.keys pour obtenir les clés de l'objet ,elle envoie un tableau contenant les noms des propriétés propres à un objet
-        const values = Object.values(data);  //  Object.values pour obtenir les valeurs de l'objet
-
-        // Utiliser Chart.js pour créer un graphique :
-        var ctx = document.getElementById('graphe hum').getContext('2d'); 
-        var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'total donnee lumiere',
-              data: values,
-              backgroundColor: 'rgba(75, 942, 19, 0.2)', // Couleur de fond
-              borderColor: 'rgba(5, 902, 92, 111)', // Couleur de la bordure
-              borderWidth: 3
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: false
+    <div style="width: 80%; margin: auto;">
+      <canvas id="myChart" width="400" height="400"></canvas>
+      <div id="lumiere-data"></div>
+    </div>
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch('http://localhost:8080/lumiere')
+          .then(response => response.json())
+          .then(data => {
+            const labels = []; // Tableau pour stocker les étiquettes des axes X
+            const values = []; // Tableau pour stocker les valeurs des axes Y
+  
+            // Parcourir les données JSON reçues
+            data.forEach(item => {
+              labels.push(item.timestamp); // Utiliser le timestamp comme étiquette sur l'axe X
+              values.push(item.valeur); // Utiliser la valeur comme données sur l'axe Y
+            });
+  
+            // Utiliser Chart.js pour créer un graphique à barres
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: labels, // Utiliser les timestamps comme étiquettes sur l'axe X
+                datasets: [{
+                  label: 'Capteur de lumière',
+                  data: values, // Utiliser les valeurs comme données sur l'axe Y
+                  backgroundColor: 'blue', // Couleur de fond
+                  borderColor: 'red', // Couleur de la bordure
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true // Commencer l'axe Y à zéro
+                  }
+                }
               }
-            }
-          }
-        });
-
-      })
-      .catch(error => {
-        console.error('donnee lumiere non recuperer pour le graphe', error);
+            });
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération des données de capteur de lumière:', error);
+          });
       });
-  });
-</script>
+    </script>
 
 </html>

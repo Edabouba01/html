@@ -13,7 +13,7 @@
  
   <link rel="stylesheet" href="css/style.css" />
 
-  <title>Son</title>
+  <title>Equipements</title>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
@@ -32,7 +32,7 @@
               <a class="nav-link " href="lumiere.html"><i class="fas fa-home"></i> afficher Capterur de lumiere</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="son.html"><i class="fas fa-handshake"></i> afficher capteur de son</a>
+              <a class="nav-link " href="son.html"><i class="fas fa-handshake"></i> afficher capteur de son</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="moisisure.html"><i class="fas fa-address-book"></i> afficher capteur de moisisure</a>
@@ -47,7 +47,7 @@
               <a class="nav-link" href="Ajouter.html"><i class="fas fa-address-book"></i> ajouter les donner</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Equipements.html"><i class="fas fa-address-book"></i> Afficher Equipements</a>
+              <a class="nav-link active" href="Equipements.html"><i class="fas fa-address-book"></i> Afficher Equipements</a>
             </li>
           </ul>
         </nav>
@@ -55,52 +55,9 @@
     </div>
    <!--Partie 1-->
    <div style="width: 80%; margin: auto;">
-    <canvas id="myChartson" width="400" height="400"></canvas>
-    <div id="son-data"></div>
+    
+    <div id="equipements-data"></div>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      fetch('http://localhost:8080/son')
-        .then(response => response.json())
-        .then(data => {
-          const labels = []; // Tableau pour stocker les étiquettes des axes X
-          const values = []; // Tableau pour stocker les valeurs des axes Y
-
-          // Parcourir les données JSON reçues
-          data.forEach(item => {
-            labels.push(item.timestamp); // Utiliser le timestamp comme étiquette sur l'axe X
-            values.push(item.valeur); // Utiliser la valeur comme données sur l'axe Y
-          });
-
-          // Utiliser Chart.js pour créer un graphique à barres
-          var ctx = document.getElementById('myChartson').getContext('2d');
-          var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: labels, // Utiliser les timestamps comme étiquettes sur l'axe X
-              datasets: [{
-                label: 'Capteur de lumière',
-                data: values, // Utiliser les valeurs comme données sur l'axe Y
-                backgroundColor: 'blue', // Couleur de fond
-                borderColor: 'red', // Couleur de la bordure
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true // Commencer l'axe Y à zéro
-                }
-              }
-            }
-          });
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des données de capteur de lumière:', error);
-        });
-    });
-  </script>
 </body>
 
 </html>

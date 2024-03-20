@@ -5,19 +5,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
- 
-  <link rel="stylesheet" href="css/style.css" />
-
-  <title>Ajouter </title>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
-  <script src="fichier.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Ajouter</title>
 </head>
 
 <body>
@@ -29,7 +20,7 @@
           <div class="collapse navbar-collapse"></div>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="lumiere.html"><i class="fas fa-home"></i> afficher Capterur de lumiere</a>
+              <a class="nav-link " href="lumiere.html"><i class="fas fa-home"></i> afficher Capteur de lumiere</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="son.html"><i class="fas fa-handshake"></i> afficher capteur de son</a>
@@ -46,104 +37,108 @@
             <li class="nav-item">
               <a class="nav-link active" href="Ajouter.html"><i class="fas fa-address-book"></i> ajouter les donner</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Equipements.html"><i class="fas fa-address-book"></i> Afficher Equipements</a>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
     <div class="container">
-      <h1>Ajouter des données</h1>
+      <h1 style="text-align: center;">Ajouter des données</h1>
       <form id="addDataForm">
-          <label for="nomObjet">Nom de l'objet:</label>
-          <input type="text" id="nomObjet" name="nomObjet" required><br><br>
-          
-          <label for="adresseIP">Adresse IP:</label>
-          <input type="text" id="adresseIP" name="adresseIP" required><br><br>
+        <label for="nomObjet">Nom de l'objet:</label>
+        <input type="text" id="nomObjet" name="nomObjet" required><br><br>
   
-          <label for="type">Type:</label>
-          <select id="type" name="type" required>
-              <option value="capteur">Capteur</option>
-              <option value="actionneur">Actionneur</option>
-          </select><br><br>
+        <label for="adresseIP">Adresse IP:</label>
+        <input type="text" id="adresseIP" name="adresseIP" required><br><br>
   
-          <div id="capteurFields">
-              <label for="typeMesure">Type de mesure:</label>
-              <input type="text" id="typeMesure" name="typeMesure"><br><br>
-              
-              <label for="valeur">Valeur:</label>
-              <input type="number" id="valeur" name="valeur"><br><br>
-          </div>
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+          <option value="capteur">Capteur</option>
+          <option value="actionneur">Actionneur</option>
+        </select><br><br>
   
-          <div id="actionneurFields">
-              <label for="typeAction">Type d'action:</label>
-              <input type="text" id="typeAction" name="typeAction"><br><br>
-          </div>
+        <div id="capteurFields" style="display: none;">
+          <label for="typeMesure">Type de mesure:</label>
+          <input type="text" id="typeMesure" name="typeMesure"><br><br>
   
-          <button type="submit">Ajouter</button>
+          <label for="valeur">Valeur:</label>
+          <input type="number" id="valeur" name="valeur"><br><br>
+        </div>
+  
+        <div id="actionneurFields" style="display: none;">
+          <label for="typeAction">Type d'action:</label>
+          <input type="text" id="typeAction" name="typeAction"><br><br>
+        </div>
+  
+        <button type="button" onclick="envoyerDonnees()">Ajouter</button>
       </form>
-  </div>
+    </div>
   
-  <script>
-      document.getElementById("type").addEventListener("change", function() {
-          var type = this.value;
-          if (type === "capteur") {
-              document.getElementById("capteurFields").style.display = "block";
-              document.getElementById("actionneurFields").style.display = "none";
-          } else if (type === "actionneur") {
-              document.getElementById("capteurFields").style.display = "none";
-              document.getElementById("actionneurFields").style.display = "block";
+    <script>
+      function envoyerDonnees() {
+        // Récupérer les valeurs des champs du formulaire
+        var nomObjet = document.getElementById("nomObjet").value;
+        var adresseIP = document.getElementById("adresseIP").value;
+        var type = document.getElementById("type").value;
+        var typeMesure = document.getElementById("typeMesure").value;
+        var valeur = document.getElementById("valeur").value;
+        var typeAction = document.getElementById("typeAction").value;
+  
+        // Créer un objet contenant les données à envoyer
+        var data = {
+          nomObjet: nomObjet,
+          adresseIP: adresseIP,
+          type: type,
+          typeMesure: typeMesure,
+          valeur: valeur,
+          typeAction: typeAction
+        };
+  
+        // Créer une requête AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8080/ajout", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+  
+        // Envoyer les données JSON au serveur
+        xhr.send(JSON.stringify(data));
+  
+        // Gérer la réponse du serveur
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            alert("Données ajoutées avec succès !");
+            // Réinitialiser le formulaire après l'envoi réussi
+            document.getElementById("addDataForm").reset();
+          } else {
+            alert("Erreur lors de l'ajout des données : " + xhr.statusText);
           }
-      });
+        };
   
-      document.getElementById("addDataForm").addEventListener("submit", function(event) {
-          event.preventDefault();
+        xhr.onerror = function () {
+          alert("Erreur lors de la connexion au serveur !");
+        };
+      }
   
-          var nomObjet = document.getElementById("nomObjet").value;
-          var adresseIP = document.getElementById("adresseIP").value;
-          var type = document.getElementById("type").value;
-          var typeSpecificData = {};
+      // Afficher les champs spécifiques en fonction du type sélectionné
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('type').addEventListener('change', function () {
+          var capteurFields = document.getElementById('capteurFields');
+          var actionneurFields = document.getElementById('actionneurFields');
   
-          if (type === "capteur") {
-              typeSpecificData.typeMesure = document.getElementById("typeMesure").value;
-              typeSpecificData.valeur = document.getElementById("valeur").value;
-          } else if (type === "actionneur") {
-              typeSpecificData.typeAction = document.getElementById("typeAction").value;
+          if (this.value === 'capteur') {
+            capteurFields.style.display = 'block';
+            actionneurFields.style.display = 'none';
+          } else if (this.value === 'actionneur') {
+            capteurFields.style.display = 'none';
+            actionneurFields.style.display = 'block';
+          } else {
+            capteurFields.style.display = 'none';
+            actionneurFields.style.display = 'none';
           }
-  
-          var data = {
-              nomObjet: nomObjet,
-              adresseIP: adresseIP,
-              type: type,
-              typeSpecificData: typeSpecificData
-          };
-  
-          fetch("http://192.168.2.208:8080/data/ajouter-donnees", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify(data)
-          })
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error("Erreur lors de l'ajout des données.");
-              }
-              return response.json();
-          })
-          .then(data => {
-              alert("Données ajoutées avec succès !");
-              document.getElementById("addDataForm").reset();
-          })
-          .catch(error => {
-              console.error("Erreur :", error);
-              alert("Une erreur est survenue lors de l'ajout des données. Veuillez réessayer.");
-          });
+        });
       });
-  </script>
-      
-  
-    
-</body>
-
-
+    </script>
+  </body>
 
 </html>
